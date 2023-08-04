@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">A Night at the Movies</string>
+
+    <string-array name="movie_ratings">
+        <item>G</item>
+        <item>PG</item>
+        <item>PG13</item>
+        <item>NC16</item>
+        <item>M18</item>
+        <item>R21</item>
+    </string-array>
+    <string name="select_rating_prompt">Select Movie Rating</string>
+
+</resources>
