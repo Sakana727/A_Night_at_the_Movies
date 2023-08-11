@@ -10,5 +10,17 @@
         <item>R21</item>
     </string-array>
     <string name="select_rating_prompt">Select Movie Rating</string>
+    <string name="title">Title</string>
+    <string name="genre">Genre</string>
+    <string name="released_year">Released Year</string>
+    <string name="insert">Insert</string>
+    <string name="show_list">Show List</string>
+    <string name="show_movies_with_rating">Show Movies with Rating</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="rating">Rating:</string>
+    <string name="year">Year</string>
+    <string name="movie_id">Movie ID</string>
 
 </resources>

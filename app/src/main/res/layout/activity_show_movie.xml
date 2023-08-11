@@ -5,22 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ShowMovie">
+    tools:context=".ShowMovie"
+    >
 
     <Button
         android:id="@+id/btnShowMoviesWithRating"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show Movies with Rating" />
+        android:layout_height="70dp"
+        android:text="@string/show_movies_with_rating" />
 
     <Spinner
         android:id="@+id/spinnerMovieRating"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:hint="@string/select_rating_prompt" />
 
     <ListView
         android:id="@+id/listViewMovies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="15px"
+        android:paddingTop="16dp"
+        />
 </LinearLayout>

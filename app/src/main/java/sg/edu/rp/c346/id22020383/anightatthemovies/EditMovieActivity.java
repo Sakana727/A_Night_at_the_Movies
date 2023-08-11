@@ -1,5 +1,6 @@
 package sg.edu.rp.c346.id22020383.anightatthemovies;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,15 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EditMovieActivity extends AppCompatActivity {
     EditText etTitle, etGenre, etYear, etId;
     Spinner spinnerRating;
     Button btnUpdate, btnDelete, btnCancel;
-
     DBHelper dbHelper;
     Movie movie;
 
@@ -52,74 +52,45 @@ public class EditMovieActivity extends AppCompatActivity {
             selectRating(movie.getRating());
         }
 
-
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                showCancelConfirmationDialog();
             }
         });
-
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the values from the EditText and Spinner
                 String idText = etId.getText().toString();
                 String title = etTitle.getText().toString();
                 String genre = etGenre.getText().toString();
                 String yearText = etYear.getText().toString();
                 String rating = spinnerRating.getSelectedItem().toString();
 
-                // Check if the ID and year fields are not empty
                 if (TextUtils.isEmpty(idText) || TextUtils.isEmpty(yearText)) {
-                    Toast.makeText(EditMovieActivity.this, "Please enter valid ID and year", Toast.LENGTH_SHORT).show();
+                    showAlertDialog("Error", "Please enter valid ID and year.");
                     return;
                 }
 
                 int id = Integer.parseInt(idText);
                 int year = Integer.parseInt(yearText);
 
-                // Create a new Movie object with the updated values
                 Movie updatedMovie = new Movie(id, title, genre, year, rating);
 
-                // Update the movie in the database
                 dbHelper.updateMovie(updatedMovie);
 
-                // Update the movie object with the new values
-                movie.setTitle(title);
-                movie.setGenre(genre);
-                movie.setYear(year);
-                movie.setRating(rating);
-
-                Toast.makeText(EditMovieActivity.this, "Movie updated successfully", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent();
-                intent.putExtra("edited_movie", updatedMovie);
-                setResult(RESULT_OK, intent);
-                finish();
+                showAlertDialog("Success", "Movie updated successfully.");
+                setResultAndFinish(RESULT_OK, updatedMovie);
             }
         });
 
-        // Set onClickListener for "Delete" button to handle movie deletion
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Check if the movie is not null
                 if (movie != null) {
-                    // Delete the movie from the database
-                    dbHelper.deleteMovie(movie.getId());
-                    Toast.makeText(EditMovieActivity.this, "Movie deleted successfully", Toast.LENGTH_SHORT).show();
-                    // Set the result and finish the activity
-                    setResult(RESULT_OK);
-                    finish();
+                    showDeleteConfirmationDialog();
                 }
-            }
-        });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }
@@ -147,5 +118,60 @@ public class EditMovieActivity extends AppCompatActivity {
                 break;
         }
         spinnerRating.setSelection(position);
+    }
+
+    private void showAlertDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+
+    private void setResultAndFinish(int resultCode, Movie movie) {
+        Intent intent = new Intent();
+        intent.putExtra("edited_movie", movie);
+        setResult(resultCode, intent);
+
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Danger")
+                .setMessage("Are you sure you want to delete "+ movie.getTitle() +"?")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dbHelper.deleteMovie(movie.getId());
+                        showAlertDialog("Success", "Movie deleted successfully.");
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+
+    private void showCancelConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Danger")
+                .setMessage("Do you want to discard the changes?")
+                .setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setPositiveButton("Do Not Discard", null)
+                .create()
+                .show();
     }
 }

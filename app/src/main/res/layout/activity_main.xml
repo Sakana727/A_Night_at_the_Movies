@@ -8,37 +8,37 @@
     <EditText
         android:id="@+id/etTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title" />
+        android:layout_height="70dp"
+        android:hint="@string/title" />
 
     <EditText
         android:id="@+id/etGenre"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Genre" />
+        android:layout_height="70dp"
+        android:hint="@string/genre" />
 
     <EditText
         android:id="@+id/etYear"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Released Year" />
+        android:layout_height="70dp"
+        android:hint="@string/released_year" />
 
     <Spinner
         android:id="@+id/spinnerRating"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:prompt="@string/select_rating_prompt" />
 
     <Button
         android:id="@+id/btnInsert"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Insert" />
+        android:layout_height="70dp"
+        android:text="@string/insert" />
 
     <Button
         android:id="@+id/btnShowList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show List" />
+        android:layout_height="70dp"
+        android:text="@string/show_list" />
 
 </LinearLayout>

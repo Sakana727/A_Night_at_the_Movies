@@ -1,7 +1,5 @@
 package sg.edu.rp.c346.id22020383.anightatthemovies;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,17 +9,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 public class ShowMovie extends AppCompatActivity {
+    private static final int EDIT_MOVIE_REQUEST_CODE = 100;
     ListView listViewMovies;
     Spinner spinnerMovieRating;
     Button btnShowMoviesWithRating;
-
     DBHelper dbHelper;
     MovieAdapter movieAdapter;
     ArrayList<Movie> allMovies;
-    private static final int EDIT_MOVIE_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
